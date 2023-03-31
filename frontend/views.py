@@ -6,9 +6,8 @@ from django.shortcuts import render, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
-from .models import Settings_fieldnames, Settings_lightnames, Selecting_fields, LightButton
+from .models import Settings_fieldnames, Selecting_fields, LightButton, Logo
 field_names = Settings_fieldnames
-light_names = Settings_lightnames.objects.all()
 light_button = LightButton
 
 # line 15 to line 47 makes sure that you cant enter the website without having an account.
@@ -191,7 +190,8 @@ def veld4view(request):
     data = {
             'page': 'Veld4.html',
             'error': '',
-            'field': Settings_fieldnames.objects.last(),          
+            'field': Settings_fieldnames.objects.last(),
+            'logo': Logo.objects.last(),             
         }
 
     return render(request, 'Index.html', data)
@@ -287,7 +287,7 @@ def homeview(request):
     enabled_lamps = bool(active_lamps)
 
     field_settings = Selecting_fields.objects.last()
-    active_fields = [field for field in ['field1_active'] if getattr(field_settings, field)]
+    active_fields = [field for field in ['field1_active', 'field2_active', 'field3_active', 'field4_active', 'field5_active', 'field6_active'] if getattr(field_settings, field)]
     enabled_fields = bool(active_fields)
 
     if request.method == 'POST':
@@ -302,13 +302,13 @@ def homeview(request):
                         setattr(light_button, other_lamp, False)
                         light_button.save()
 
-        for field in ['field1_active']:
+        for field in ['field1_active', 'field2_active', 'field3_active', 'field4_active', 'field5_active', 'field6_active']:
             if field in request.POST:
                 setattr(field_settings, field, field not in active_fields)
                 field_settings.save()
                 active_fields = [field] if field not in active_fields else []
                 enabled_fields = bool(active_fields)
-                for other_field in ['field1_active']:
+                for other_field in ['field1_active', 'field2_active', 'field3_active', 'field4_active', 'field5_active', 'field6_active']:
                     if other_field != field:
                         setattr(field_settings, other_field, False)
                         field_settings.save()
@@ -317,7 +317,7 @@ def homeview(request):
     for field_name in ['Lamp001_bool', 'Lamp002_bool', 'Lamp003_bool', 'Lamp004_bool']:
         lamp_data[field_name.lower()] = getattr(light_button, field_name)
 
-    field_data = {f: getattr(field_settings, f) for f in ['field1_active']}
+    field_data = {f: getattr(field_settings, f) for f in ['field1_active', 'field2_active', 'field3_active', 'field4_active', 'field5_active', 'field6_active']}
 
     data = {
         'page': 'Home.html',
@@ -328,6 +328,7 @@ def homeview(request):
         'field_data': field_data,
         'enabled_fields': enabled_fields,
         'active_fields': active_fields,
+        'logo': Logo.objects.last(),   
     }
     return render(request, 'Index.html', data)
 
@@ -337,7 +338,7 @@ def veld1view(request):
     enabled_lamps = bool(active_lamps)
 
     field_settings = Selecting_fields.objects.last()
-    active_fields = [field for field in ['field2_active'] if getattr(field_settings, field)]
+    active_fields = [field for field in ['field7_active', 'field8_active', 'field9_active', 'field10_active', 'field11_active', 'field12_active'] if getattr(field_settings, field)]
     enabled_fields = bool(active_fields)
 
     if request.method == 'POST':
@@ -352,13 +353,13 @@ def veld1view(request):
                         setattr(light_button, other_lamp, False)
                         light_button.save()
 
-        for field in ['field2_active']:
+        for field in ['field7_active', 'field8_active', 'field9_active', 'field10_active', 'field11_active', 'field12_active']:
             if field in request.POST:
                 setattr(field_settings, field, field not in active_fields)
                 field_settings.save()
                 active_fields = [field] if field not in active_fields else []
                 enabled_fields = bool(active_fields)
-                for other_field in ['field2_active']:
+                for other_field in ['field7_active', 'field8_active', 'field9_active', 'field10_active', 'field11_active', 'field12_active']:
                     if other_field != field:
                         setattr(field_settings, other_field, False)
                         field_settings.save()
@@ -367,7 +368,7 @@ def veld1view(request):
     for field_name in ['Lamp005_bool', 'Lamp006_bool', 'Lamp007_bool', 'Lamp008_bool']:
         lamp_data[field_name.lower()] = getattr(light_button, field_name)
 
-    field_data = {f: getattr(field_settings, f) for f in ['field2_active']}
+    field_data = {f: getattr(field_settings, f) for f in ['field7_active', 'field8_active', 'field9_active', 'field10_active', 'field11_active', 'field12_active']}
 
     data = {
         'page': 'Veld1.html',
@@ -378,6 +379,7 @@ def veld1view(request):
         'field_data': field_data,
         'enabled_fields': enabled_fields,
         'active_fields': active_fields,
+        'logo': Logo.objects.last(),   
     }
     return render(request, 'Index.html', data)
 
@@ -387,7 +389,7 @@ def veld2view(request):
     enabled_lamps = bool(active_lamps)
 
     field_settings = Selecting_fields.objects.last()
-    active_fields = [field for field in ['field3_active'] if getattr(field_settings, field)]
+    active_fields = [field for field in ['field13_active', 'field14_active', 'field15_active', 'field16_active', 'field17_active', 'field18_active'] if getattr(field_settings, field)]
     enabled_fields = bool(active_fields)
 
     if request.method == 'POST':
@@ -402,13 +404,13 @@ def veld2view(request):
                         setattr(light_button, other_lamp, False)
                         light_button.save()
 
-        for field in ['field3_active']:
+        for field in ['field13_active', 'field14_active', 'field15_active', 'field16_active', 'field17_active', 'field18_active']:
             if field in request.POST:
                 setattr(field_settings, field, field not in active_fields)
                 field_settings.save()
                 active_fields = [field] if field not in active_fields else []
                 enabled_fields = bool(active_fields)
-                for other_field in ['field3_active']:
+                for other_field in ['field13_active', 'field14_active', 'field15_active', 'field16_active', 'field17_active', 'field18_active']:
                     if other_field != field:
                         setattr(field_settings, other_field, False)
                         field_settings.save()
@@ -417,7 +419,7 @@ def veld2view(request):
     for field_name in ['Lamp009_bool', 'Lamp0010_bool', 'Lamp0011_bool', 'Lamp0012_bool']:
         lamp_data[field_name.lower()] = getattr(light_button, field_name)
 
-    field_data = {f: getattr(field_settings, f) for f in ['field3_active']}
+    field_data = {f: getattr(field_settings, f) for f in ['field13_active', 'field14_active', 'field15_active', 'field16_active', 'field17_active', 'field18_active']}
 
     data = {
         'page': 'Veld2.html',
@@ -428,6 +430,7 @@ def veld2view(request):
         'field_data': field_data,
         'enabled_fields': enabled_fields,
         'active_fields': active_fields,
+        'logo': Logo.objects.last(),   
     }
     return render(request, 'Index.html', data)
 
@@ -437,7 +440,7 @@ def veld3view(request):
     enabled_lamps = bool(active_lamps)
 
     field_settings = Selecting_fields.objects.last()
-    active_fields = [field for field in ['field4_active'] if getattr(field_settings, field)]
+    active_fields = [field for field in ['field19_active', 'field20_active', 'field21_active', 'field22_active', 'field23_active', 'field24_active'] if getattr(field_settings, field)]
     enabled_fields = bool(active_fields)
 
     if request.method == 'POST':
@@ -452,13 +455,13 @@ def veld3view(request):
                         setattr(light_button, other_lamp, False)
                         light_button.save()
 
-        for field in ['field4_active']:
+        for field in ['field19_active', 'field20_active', 'field21_active', 'field22_active', 'field23_active', 'field24_active']:
             if field in request.POST:
                 setattr(field_settings, field, field not in active_fields)
                 field_settings.save()
                 active_fields = [field] if field not in active_fields else []
                 enabled_fields = bool(active_fields)
-                for other_field in ['field4_active']:
+                for other_field in ['field19_active', 'field20_active', 'field21_active', 'field22_active', 'field23_active', 'field24_active']:
                     if other_field != field:
                         setattr(field_settings, other_field, False)
                         field_settings.save()
@@ -467,7 +470,7 @@ def veld3view(request):
     for field_name in ['Lamp0013_bool', 'Lamp0014_bool', 'Lamp0015_bool', 'Lamp0016_bool']:
         lamp_data[field_name.lower()] = getattr(light_button, field_name)
 
-    field_data = {f: getattr(field_settings, f) for f in ['field4_active']}
+    field_data = {f: getattr(field_settings, f) for f in ['field19_active', 'field20_active', 'field21_active', 'field22_active', 'field23_active', 'field24_active']}
 
     data = {
         'page': 'Veld3.html',
@@ -478,6 +481,7 @@ def veld3view(request):
         'field_data': field_data,
         'enabled_fields': enabled_fields,
         'active_fields': active_fields,
+        'logo': Logo.objects.last(),   
     }
     return render(request, 'Index.html', data)
 
@@ -493,6 +497,7 @@ def settingsview(request):
             'page': 'Settings.html',
             'error': '',
             'field': Settings_fieldnames.objects.last(),
+            'logo': Logo.objects.last(),   
         }   
     return render(request, 'Index.html', data)
 
@@ -510,26 +515,12 @@ def settingssview(request):
                 setattr(table, field, Settings_fieldnames.objects.values(field).last()[field])
 
         table.save()
-    
-    if request.method == "POST" and "lights" in request.POST:
-        boxes = {'l1': 'Lamp1', 'l2': 'Lamp2', 'l3': 'Lamp3', 'l4': 'Lamp4'}
-        table = Settings_lightnames()
-
-        for box, lamp in boxes.items():
-            requested_box = request.POST.get(box)
-            if requested_box != "" and len(requested_box) > 1:
-                setattr(table, lamp, requested_box)
-            else:
-                setattr(table, lamp, Settings_lightnames.objects.values(lamp).last()[lamp])
-        table.field_id = request.POST.get('field_id')
-        
-        table.save()
-
-    
+       
     data = {
                 'page': 'Settingss.html',
                 'error': '',
                 'field': Settings_fieldnames.objects.last(),
+                'logo': Logo.objects.last(),   
             }   
     return render(request, 'Index.html', data)
 
